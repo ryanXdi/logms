@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node src/index.js",
     "dev": "node --watch src/index.js",
-    "build": "cd ../frontend && npm install && npm run build"
+    "build": "cd ../frontend && npm install --production=false && npm run build"
   },
   "dependencies": {
     "bcryptjs": "^3.0.2",
