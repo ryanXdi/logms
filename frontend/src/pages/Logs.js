@@ -4,9 +4,12 @@ import LogTable from '../components/LogTable';
 import SearchBar from '../components/SearchBar';
 import Stats from '../components/Stats';
 
-const API_URL = 'http://localhost:4000/api';
+const API_URL = process.env.NODE_ENV === 'production' 
+  ? '/api' 
+  : 'http://localhost:4000/api';
 
 function Logs({ onLogout }) {
+
   const [logs, setLogs] = useState([]);
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(false);

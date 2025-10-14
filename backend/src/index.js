@@ -5,6 +5,8 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
 import rateLimit from 'express-rate-limit';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 import ingestRoutes from './routes/ingest.js';
 import searchRoutes from './routes/search.js';
@@ -17,8 +19,11 @@ import alertEngine from './services/alertEngine.js';
 
 dotenv.config();
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const app = express();
-const PORT = process.env.BACKEND_PORT || 4000;
+const PORT = process.env.PORT || process.env.BACKEND_PORT || 4000;
 
 const generalLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -59,7 +64,10 @@ const ingestLimiter = rateLimit({
   },
 });
 
-app.use(helmet());
+app.use(helmet({
+    contentSecurityPolicy: false,
+    crossOriginEmbedderPolicy: false
+}));
 app.use(cors());
 app.use(morgan('dev'));
 app.use(express.json());
@@ -102,9 +110,21 @@ app.get('/app/health', (req, res) => {
     });
 });
 
-app.use((req, res) => {
-    res.status(404).json({ error: 'Not Found' });
-});
+// Serve static frontend files in production
+if (process.env.NODE_ENV === 'production') {
+    const frontendBuildPath = path.join(__dirname, '../../frontend/build');
+    app.use(express.static(frontendBuildPath));
+    
+    // All non-API routes serve the React app
+    app.get('*', (req, res) => {
+        res.sendFile(path.join(frontendBuildPath, 'index.html'));
+    });
+} else {
+    // Development: API-only mode
+    app.use((req, res) => {
+        res.status(404).json({ error: 'Not Found' });
+    });
+}
 
 // MongoDB Connection
 const connectDB = async () => {

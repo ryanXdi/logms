@@ -1,6 +1,9 @@
 import axios from 'axios';
 
-export const API_URL = 'http://localhost:4000/api';
+// In production, API is on same domain. In development, use localhost:4000
+export const API_URL = process.env.NODE_ENV === 'production' 
+  ? '/api' 
+  : 'http://localhost:4000/api';
 
 // Create axios instance with default config
 export const apiClient = axios.create({

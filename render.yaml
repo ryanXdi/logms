@@ -1,42 +1,55 @@
 services:
+  # MongoDB Database
+  - type: pserv
+    name: logms-mongodb
+    env: docker
+    plan: starter
+    image: mongo:7.0
+    disk:
+      name: mongodb-data
+      mountPath: /data/db
+      sizeGB: 1
+    envVars:
+      - key: MONGO_INITDB_ROOT_USERNAME
+        value: logms
+      - key: MONGO_INITDB_ROOT_PASSWORD
+        generateValue: true
+      - key: MONGO_INITDB_DATABASE
+        value: logms
+
+  # Unified Backend + Frontend Service
   - type: web
-    name: logms-backend
+    name: logms-app
     env: node
-    buildCommand: cd backend && npm install
+    region: oregon
+    plan: starter
+    buildCommand: cd backend && npm install && npm run build
     startCommand: cd backend && npm start
     envVars:
-      - key: APP_NAME
-        value: logms-demo
       - key: NODE_ENV
         value: production
-      - key: BACKEND_PORT
-        value: 4000
+      - key: PORT
+        value: 10000
       - key: MONGODB_URI
-        sync: false
+        fromService:
+          name: logms-mongodb
+          type: pserv
+          property: connectionString
       - key: JWT_SECRET
-        sync: false
+        generateValue: true
       - key: APP_ADMIN_EMAIL
-        sync: false
+        value: admin@example.com
       - key: APP_ADMIN_PASSWORD
-        sync: false
+        generateValue: true
       - key: DEFAULT_TENANT
-        value: acme
-      - key: RETENTION_DAYS
-        value: 7
+        value: default
+      - key: SYSLOG_UDP_PORT
+        value: 5140
+      - key: SYSLOG_TCP_PORT
+        value: 5140
       - key: RESEND_API_KEY
         sync: false
       - key: ALERT_EMAIL_FROM
         sync: false
       - key: ALERT_EMAIL_TO
         sync: false
-
-  - type: web
-    name: logms-frontend
-    env: static
-    buildCommand: cd frontend && npm install && npm run build
-    staticPublishPath: frontend/build
-    envVars:
-      - key: REACT_APP_API_URL
-        sync: false
-      - key: NODE_ENV
-        value: production
