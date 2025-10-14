@@ -1,0 +1,225 @@
+{
+  "Records": [
+    {
+      "eventVersion": "1.08",
+      "userIdentity": {
+        "type": "IAMUser",
+        "principalId": "AIDACKCEVSQ6C2EXAMPLE",
+        "arn": "arn:aws:iam::123456789012:user/john.doe",
+        "accountId": "123456789012",
+        "userName": "john.doe"
+      },
+      "eventTime": "2025-10-13T14:30:45Z",
+      "eventSource": "signin.amazonaws.com",
+      "eventName": "ConsoleLogin",
+      "awsRegion": "us-east-1",
+      "sourceIPAddress": "203.0.113.42",
+      "userAgent": "Mozilla/5.0",
+      "requestParameters": null,
+      "responseElements": {
+        "ConsoleLogin": "Success"
+      },
+      "additionalEventData": {
+        "LoginTo": "https://console.aws.amazon.com/console/home",
+        "MobileVersion": "No",
+        "MFAUsed": "Yes"
+      },
+      "eventID": "3d8c0e00-1234-5678-9abc-def012345678",
+      "readOnly": false,
+      "eventType": "AwsConsoleSignIn",
+      "managementEvent": true,
+      "recipientAccountId": "123456789012",
+      "eventCategory": "Management"
+    },
+    {
+      "eventVersion": "1.08",
+      "userIdentity": {
+        "type": "IAMUser",
+        "principalId": "AIDACKCEVSQ6C2EXAMPLE",
+        "arn": "arn:aws:iam::123456789012:user/jane.smith",
+        "accountId": "123456789012",
+        "userName": "jane.smith"
+      },
+      "eventTime": "2025-10-13T14:32:15Z",
+      "eventSource": "s3.amazonaws.com",
+      "eventName": "GetObject",
+      "awsRegion": "us-west-2",
+      "sourceIPAddress": "198.51.100.23",
+      "userAgent": "aws-cli/2.13.0 Python/3.11.4 Linux/5.10.0",
+      "requestParameters": {
+        "bucketName": "company-data-prod",
+        "key": "financial/q3-report.pdf"
+      },
+      "responseElements": null,
+      "additionalEventData": {
+        "CipherSuite": "ECDHE-RSA-AES128-GCM-SHA256",
+        "bytesTransferredIn": 0,
+        "bytesTransferredOut": 2458912,
+        "x-amz-id-2": "abcdef123456"
+      },
+      "requestID": "A1B2C3D4E5F6G7H8",
+      "eventID": "1a2b3c4d-5678-90ab-cdef-1234567890ab",
+      "readOnly": true,
+      "resources": [
+        {
+          "type": "AWS::S3::Object",
+          "ARN": "arn:aws:s3:::company-data-prod/financial/q3-report.pdf"
+        }
+      ],
+      "eventType": "AwsApiCall",
+      "managementEvent": false,
+      "recipientAccountId": "123456789012",
+      "eventCategory": "Data"
+    },
+    {
+      "eventVersion": "1.08",
+      "userIdentity": {
+        "type": "IAMUser",
+        "principalId": "AIDACKCEVSQ6C2EXAMPLE",
+        "arn": "arn:aws:iam::123456789012:user/admin",
+        "accountId": "123456789012",
+        "userName": "admin"
+      },
+      "eventTime": "2025-10-13T14:35:22Z",
+      "eventSource": "iam.amazonaws.com",
+      "eventName": "CreateUser",
+      "awsRegion": "us-east-1",
+      "sourceIPAddress": "203.0.113.100",
+      "userAgent": "aws-cli/2.13.0 Python/3.11.4 Darwin/21.6.0",
+      "requestParameters": {
+        "userName": "contractor.temp"
+      },
+      "responseElements": {
+        "user": {
+          "path": "/",
+          "userName": "contractor.temp",
+          "userId": "AIDAI23HXX2LX4EXAMPLE",
+          "arn": "arn:aws:iam::123456789012:user/contractor.temp",
+          "createDate": "Oct 13, 2025 2:35:22 PM"
+        }
+      },
+      "requestID": "abcd1234-5678-90ef-ghij-klmnop123456",
+      "eventID": "9f8e7d6c-5b4a-3210-fedc-ba9876543210",
+      "readOnly": false,
+      "eventType": "AwsApiCall",
+      "managementEvent": true,
+      "recipientAccountId": "123456789012",
+      "eventCategory": "Management"
+    },
+    {
+      "eventVersion": "1.08",
+      "userIdentity": {
+        "type": "IAMUser",
+        "principalId": "AIDACKCEVSQ6C2EXAMPLE",
+        "arn": "arn:aws:iam::123456789012:user/bob.wilson",
+        "accountId": "123456789012",
+        "userName": "bob.wilson"
+      },
+      "eventTime": "2025-10-13T14:38:10Z",
+      "eventSource": "ec2.amazonaws.com",
+      "eventName": "TerminateInstances",
+      "awsRegion": "us-east-1",
+      "sourceIPAddress": "203.0.113.77",
+      "userAgent": "console.ec2.amazonaws.com",
+      "requestParameters": {
+        "instancesSet": {
+          "items": [
+            {
+              "instanceId": "i-1234567890abcdef0"
+            }
+          ]
+        }
+      },
+      "responseElements": {
+        "instancesSet": {
+          "items": [
+            {
+              "instanceId": "i-1234567890abcdef0",
+              "currentState": {
+                "code": 32,
+                "name": "shutting-down"
+              },
+              "previousState": {
+                "code": 16,
+                "name": "running"
+              }
+            }
+          ]
+        }
+      },
+      "requestID": "example-request-id-12345",
+      "eventID": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+      "readOnly": false,
+      "eventType": "AwsApiCall",
+      "managementEvent": true,
+      "recipientAccountId": "123456789012",
+      "eventCategory": "Management"
+    },
+    {
+      "eventVersion": "1.08",
+      "userIdentity": {
+        "type": "IAMUser",
+        "principalId": "AIDACKCEVSQ6C2EXAMPLE",
+        "arn": "arn:aws:iam::123456789012:user/attacker",
+        "accountId": "123456789012",
+        "userName": "attacker"
+      },
+      "eventTime": "2025-10-13T14:40:55Z",
+      "eventSource": "signin.amazonaws.com",
+      "eventName": "ConsoleLogin",
+      "awsRegion": "us-east-1",
+      "sourceIPAddress": "192.0.2.200",
+      "userAgent": "Mozilla/5.0",
+      "errorCode": "Failed authentication",
+      "errorMessage": "Failed authentication",
+      "requestParameters": null,
+      "responseElements": {
+        "ConsoleLogin": "Failure"
+      },
+      "additionalEventData": {
+        "LoginTo": "https://console.aws.amazon.com/console/home",
+        "MobileVersion": "No",
+        "MFAUsed": "No"
+      },
+      "eventID": "error-event-1234-5678-9abc",
+      "readOnly": false,
+      "eventType": "AwsConsoleSignIn",
+      "managementEvent": true,
+      "recipientAccountId": "123456789012",
+      "eventCategory": "Management"
+    },
+    {
+      "eventVersion": "1.08",
+      "userIdentity": {
+        "type": "IAMUser",
+        "principalId": "AIDACKCEVSQ6C2EXAMPLE",
+        "arn": "arn:aws:iam::123456789012:user/admin",
+        "accountId": "123456789012",
+        "userName": "admin"
+      },
+      "eventTime": "2025-10-13T14:42:30Z",
+      "eventSource": "s3.amazonaws.com",
+      "eventName": "DeleteBucket",
+      "awsRegion": "us-west-2",
+      "sourceIPAddress": "203.0.113.50",
+      "userAgent": "aws-cli/2.13.0",
+      "requestParameters": {
+        "bucketName": "old-test-bucket"
+      },
+      "responseElements": null,
+      "requestID": "delete-bucket-req-123",
+      "eventID": "del-event-9876-5432-1098",
+      "readOnly": false,
+      "resources": [
+        {
+          "type": "AWS::S3::Bucket",
+          "ARN": "arn:aws:s3:::old-test-bucket"
+        }
+      ],
+      "eventType": "AwsApiCall",
+      "managementEvent": true,
+      "recipientAccountId": "123456789012",
+      "eventCategory": "Management"
+    }
+  ]
+}

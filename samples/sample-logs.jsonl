@@ -1,0 +1,4 @@
+{"timestamp": "2025-10-13T10:30:00Z", "severity": 5, "message": "User login successful", "user": "john.doe", "src_ip": "10.0.0.50"}
+{"timestamp": "2025-10-13T10:31:00Z", "severity": 6, "message": "Failed authentication attempt", "user": "admin", "src_ip": "203.0.113.100"}
+{"timestamp": "2025-10-13T10:32:00Z", "severity": 4, "message": "File uploaded: report.pdf", "user": "jane.smith", "host": "file-server"}
+{"timestamp": "2025-10-13T10:33:00Z", "severity": 7, "message": "Disk space warning: 85% full", "host": "storage-01", "event_type": "system"}

@@ -1,0 +1,42 @@
+services:
+  - type: web
+    name: logms-backend
+    env: node
+    buildCommand: cd backend && npm install
+    startCommand: cd backend && npm start
+    envVars:
+      - key: APP_NAME
+        value: logms-demo
+      - key: NODE_ENV
+        value: production
+      - key: BACKEND_PORT
+        value: 4000
+      - key: MONGODB_URI
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: APP_ADMIN_EMAIL
+        sync: false
+      - key: APP_ADMIN_PASSWORD
+        sync: false
+      - key: DEFAULT_TENANT
+        value: acme
+      - key: RETENTION_DAYS
+        value: 7
+      - key: RESEND_API_KEY
+        sync: false
+      - key: ALERT_EMAIL_FROM
+        sync: false
+      - key: ALERT_EMAIL_TO
+        sync: false
+
+  - type: web
+    name: logms-frontend
+    env: static
+    buildCommand: cd frontend && npm install && npm run build
+    staticPublishPath: frontend/build
+    envVars:
+      - key: REACT_APP_API_URL
+        sync: false
+      - key: NODE_ENV
+        value: production
