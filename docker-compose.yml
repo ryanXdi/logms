@@ -21,8 +21,11 @@ services:
     restart: unless-stopped
     environment:
       - MONGODB_URI=mongodb://logms:logms@mongo:27017/logms?authSource=admin
-      - JWT_SECRET=your-secret-key
+      - JWT_SECRET=logms_docker_secret_key_2025
       - PORT=4000
+      - APP_ADMIN_EMAIL=admin@example.com
+      - APP_ADMIN_PASSWORD=admin123
+      - DEFAULT_TENANT=default
       - RESEND_API_KEY=${RESEND_API_KEY}
       - ALERT_EMAIL_FROM=${ALERT_EMAIL_FROM:-onboarding@resend.dev}
       - ALERT_EMAIL_TO=${ALERT_EMAIL_TO}

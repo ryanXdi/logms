@@ -227,7 +227,6 @@ class AlertEngine {
             rule.triggerCount = (rule.triggerCount || 0) + 1;
             await rule.save();
 
-            // EXECUTE ACTIONS: Perform configured actions (webhook, email, etc.)
             for (const action of rule.actions || []) {
                 try {
                     await this.executeAction(action, notification);
@@ -236,7 +235,7 @@ class AlertEngine {
                 }
             }
 
-            // SEND EMAIL NOTIFICATION (always send for critical/high severity)
+            // send email notification 
             if (severity === 'critical' || severity === 'high') {
                 try {
                     await emailService.sendAlertEmail(notification);
