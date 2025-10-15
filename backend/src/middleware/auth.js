@@ -34,7 +34,7 @@ export const requireAdmin = (req, res, next) => {
 };
 
 export const enforceTenant = (req, res, next) => {
-    const requestedTenant = req.headers['x-tenant-id'] || 'default';
+    const requestedTenant = req.headers['x-tenant-id'] || req.user.tenant || 'default';
 
     if (req.user.role === 'admin') {
         req.tenant = requestedTenant;

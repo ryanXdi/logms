@@ -189,10 +189,19 @@ class AlertEngine {
     // Trigger alert actions
     async triggerAlert(rule, logs, metadata = {}) {
         try {
+            // Prevent duplicate alerts if notification is not resolved
+            const active = await AlertNotification.findOne({
+                ruleId: rule._id,
+                tenant: rule.tenant,
+                status: { $in: ['resolved', 'acknowledged'] }
+            });
+            if (active) {
+                console.log(`Alert "${rule.name}" already active (status: ${active.status})`);
+                return;
+            }
             if (rule.lastTriggered) {
                 const timeSinceLastTrigger = Date.now() - rule.lastTriggered.getTime();
-                const cooldownMs = 5 * 60 * 1000; // 5 minutes cooldown
-                
+                const cooldownMs = 60 * 1000; // 5 minutes cooldown
                 if (timeSinceLastTrigger < cooldownMs) {
                     const remaining = Math.round((cooldownMs - timeSinceLastTrigger) / 1000);
                     console.log(`Alert "${rule.name}" in cooldown (${remaining}s remaining)`);
