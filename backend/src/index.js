@@ -27,7 +27,7 @@ const PORT = process.env.PORT || process.env.BACKEND_PORT || 4000;
 
 const generalLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100,                  // 100 requests per 15 minutes per IP
+  max: 10000,                // 10000 requests per 15 minutes per IP
   message: {
     success: false,
     error: 'Too many requests from this IP, please try again after 15 minutes.'
@@ -38,7 +38,7 @@ const generalLimiter = rateLimit({
 
 const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 5,                    // Only 5 requests per 15 minutes
+  max: 50,                   // 50 requests per 15 minutes
   message: {
     success: false,
     error: 'Too many login attempts, please try again after 15 minutes.'
@@ -48,7 +48,7 @@ const authLimiter = rateLimit({
 
 const searchLimiter = rateLimit({
   windowMs: 1 * 60 * 1000,  // 1 minute
-  max: 30,                   // 30 searches per minute
+  max: 3000,                 // 3000 searches per minute
   message: {
     success: false,
     error: 'Too many search requests, please slow down.'
