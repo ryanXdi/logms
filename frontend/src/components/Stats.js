@@ -25,10 +25,12 @@ function Stats({ stats }) {
           let count = 0;
           if (stats.timeline) {
             stats.timeline.forEach(point => {
-              const pointDate = new Date(point.time);
-              const pointHour = pointDate.getHours();
+              // point.time is in format "YYYY-MM-DD HH:00" in UTC
+              // We need to convert to local timezone
+              const pointDate = new Date(point.time + ':00Z'); // Add Z to indicate UTC
+              const localHour = pointDate.getHours(); // This will convert to local timezone
               
-              if (pointHour >= hour && pointHour < hour + 2) {
+              if (localHour >= hour && localHour < hour + 2) {
                 count += point.count;
               }
             });
@@ -42,7 +44,7 @@ function Stats({ stats }) {
         return (
           <div className="card" style={{ marginBottom: '20px' }}>
             <h3 style={{ marginTop: 0, marginBottom: '15px', color: '#111827', fontSize: '16px' }}>
-              📊 Log Activity - 24 Hour View (2-Hour Intervals)
+              📊 Log Activity - 24 Hour View (2-Hour Intervals, Local Time)
             </h3>
             <div style={{ 
               display: 'flex', 

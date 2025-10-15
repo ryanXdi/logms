@@ -194,19 +194,39 @@ function Logs({ onLogout }) {
         boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
         marginBottom: '20px'
       }}>
-        <div className="container" style={{ 
+        <div className="responsive-header" style={{ 
           display: 'flex', 
           justifyContent: 'space-between', 
           alignItems: 'center',
-          padding: '15px 20px'
+          padding: '15px 20px',
+          flexWrap: 'wrap',
+          gap: '10px'
         }}>
-          <h1 style={{ margin: 0, color: '#111827' }}>Log Management System</h1>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+          <h1 style={{ 
+            margin: 0, 
+            color: '#111827',
+            fontSize: 'clamp(1.25rem, 4vw, 1.75rem)',
+            flexShrink: 0
+          }}>
+            LogMS
+          </h1>
+          <div style={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            gap: '10px',
+            flexWrap: 'wrap',
+            justifyContent: 'flex-end'
+          }}>
             {/* Tenant Switcher for Admins */}
             {isAdmin && availableTenants.length > 0 && (
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <label htmlFor="tenant-select" style={{ color: '#6b7280', fontSize: '14px' }}>
-                  Viewing Tenant:
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'nowrap' }}>
+                <label htmlFor="tenant-select" style={{ 
+                  color: '#6b7280', 
+                  fontSize: '14px',
+                  whiteSpace: 'nowrap',
+                  display: window.innerWidth < 768 ? 'none' : 'inline'
+                }}>
+                  Tenant:
                 </label>
                 <select
                   id="tenant-select"
@@ -218,7 +238,8 @@ function Logs({ onLogout }) {
                     border: '1px solid #d1d5db',
                     fontSize: '14px',
                     cursor: 'pointer',
-                    backgroundColor: 'white'
+                    backgroundColor: 'white',
+                    minWidth: '100px'
                   }}
                 >
                   {availableTenants.map(tenant => (
@@ -229,17 +250,34 @@ function Logs({ onLogout }) {
                 </select>
               </div>
             )}
-            <span style={{ color: '#6b7280' }}>
+            <span className="user-info" style={{ 
+              color: '#6b7280',
+              fontSize: '14px',
+              whiteSpace: 'nowrap',
+              display: window.innerWidth < 640 ? 'none' : 'inline'
+            }}>
               {user.email} ({user.role})
             </span>
             <button 
               className="btn btn-primary" 
               onClick={() => window.location.href = '/alerts'}
-              style={{ marginRight: '10px' }}
+              style={{ 
+                marginRight: '0',
+                padding: '8px 12px',
+                fontSize: '14px',
+                whiteSpace: 'nowrap'
+              }}
             >
-              View Alerts
+              Alerts
             </button>
-            <button className="btn btn-secondary" onClick={onLogout}>
+            <button 
+              className="btn btn-secondary" 
+              onClick={onLogout}
+              style={{
+                padding: '8px 12px',
+                fontSize: '14px'
+              }}
+            >
               Logout
             </button>
           </div>

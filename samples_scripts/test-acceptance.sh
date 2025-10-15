@@ -36,7 +36,7 @@ if [ -z "$TOKEN" ]; then
 fi
 echo -e "${GREEN}✓ Auth token obtained\n${NC}"
 
-# Test 2: send syslog and check UI
+# Test 2: send syslog
 echo -e "${YELLOW}✓ Test 2: Syslog Ingestion (Real-time)${NC}"
 echo -e "  Sending syslog via UDP port 5140..."
 
@@ -58,7 +58,7 @@ else
     echo -e "  ${YELLOW}⚠ WARNING${NC} - Syslog may not be ingested yet (check UI)\n"
 fi
 
-# Test 3: POST /ingest with JSON and search
+# Test 3: HTTP API ingestion and search
 echo -e "${YELLOW}✓ Test 3: HTTP API Ingestion & Search${NC}"
 echo -e "  POST /api/ingest with sample JSON..."
 

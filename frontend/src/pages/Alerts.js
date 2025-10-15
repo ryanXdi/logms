@@ -341,14 +341,38 @@ function Alerts({ onLogout }) {
 
   return (
     <div style={{ padding: '20px', fontFamily: 'system-ui, -apple-system, sans-serif' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-        <h1 style={{ margin: 0 }}>Alert Management</h1>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+      <div className="responsive-header" style={{ 
+        display: 'flex', 
+        justifyContent: 'space-between', 
+        alignItems: 'center', 
+        marginBottom: '20px',
+        flexWrap: 'wrap',
+        gap: '10px'
+      }}>
+        <h1 style={{ 
+          margin: 0,
+          fontSize: 'clamp(1.25rem, 4vw, 1.75rem)',
+          flexShrink: 0
+        }}>
+          Alerts
+        </h1>
+        <div style={{ 
+          display: 'flex', 
+          alignItems: 'center', 
+          gap: '10px',
+          flexWrap: 'wrap',
+          justifyContent: 'flex-end'
+        }}>
           {/* Tenant Switcher for Admins */}
           {isAdmin && availableTenants.length > 0 && (
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <label htmlFor="tenant-select-alerts" style={{ color: '#6b7280', fontSize: '14px' }}>
-                Viewing Tenant:
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'nowrap' }}>
+              <label htmlFor="tenant-select-alerts" style={{ 
+                color: '#6b7280', 
+                fontSize: '14px',
+                whiteSpace: 'nowrap',
+                display: window.innerWidth < 768 ? 'none' : 'inline'
+              }}>
+                Tenant:
               </label>
               <select
                 id="tenant-select-alerts"
@@ -360,7 +384,8 @@ function Alerts({ onLogout }) {
                   border: '1px solid #d1d5db',
                   fontSize: '14px',
                   cursor: 'pointer',
-                  backgroundColor: 'white'
+                  backgroundColor: 'white',
+                  minWidth: '100px'
                 }}
               >
                 {availableTenants.map(tenant => (
@@ -379,10 +404,12 @@ function Alerts({ onLogout }) {
               color: 'white',
               border: 'none',
               borderRadius: '4px',
-              cursor: 'pointer'
+              cursor: 'pointer',
+              fontSize: '14px',
+              whiteSpace: 'nowrap'
             }}
           >
-            View Logs
+            Logs
           </button>
           <button 
             onClick={onLogout}
@@ -392,7 +419,9 @@ function Alerts({ onLogout }) {
               color: 'white',
               border: 'none',
               borderRadius: '4px',
-              cursor: 'pointer'
+              cursor: 'pointer',
+              fontSize: '14px',
+              whiteSpace: 'nowrap'
             }}
           >
             Logout
