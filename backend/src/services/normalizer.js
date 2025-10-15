@@ -131,32 +131,20 @@ class LogNormalizer {
             tenant,
             source: 'aws-cloudtrail',
             severity,
-            
-            // Source identification
             vendor: 'aws',
             product: 'cloudtrail',
-            
-            // Event classification
             event_type: event.eventSource?.split('.')[0] || 'aws',
             event_subtype: event.eventCategory || null,
             action: event.eventName,
-            
-            // Network fields
             src_ip: event.sourceIPAddress,
-            
-            // Identity and host
             user: userIdentity.userName || userIdentity.principalId || userIdentity.type,
             host: event.awsRegion,
             process: event.eventSource,
-            
-            // Cloud provider fields
             cloud: {
                 account_id: event.userIdentity?.accountId || event.recipientAccountId || null,
                 region: event.awsRegion || null,
                 service: event.eventSource?.replace('.amazonaws.com', '') || null
             },
-            
-            // Message and raw data
             message: `${event.eventName} by ${userIdentity.userName || userIdentity.type} from ${event.sourceIPAddress}`,
             raw: JSON.stringify(event),
             _tags: ['aws', 'cloudtrail', event.eventSource?.split('.')[0] || 'aws']
