@@ -27,10 +27,11 @@ function LogTable({ logs }) {
             <th>Timestamp</th>
             <th>Severity</th>
             <th>Source</th>
+            <th>Event</th>
+            <th>Src IP</th>
+            <th>User</th>
             <th>Host</th>
             <th>Message</th>
-            <th>User</th>
-            <th>Event Type</th>
           </tr>
         </thead>
         <tbody>
@@ -44,13 +45,32 @@ function LogTable({ logs }) {
                   {log.severity}
                 </span>
               </td>
-              <td>{log.source}</td>
+              <td>
+                <div style={{ fontSize: '14px' }}>{log.source}</div>
+                {log.vendor && (
+                  <small style={{ color: '#6b7280', fontSize: '12px' }}>{log.vendor}</small>
+                )}
+              </td>
+              <td>
+                <div style={{ fontSize: '14px' }}>{log.event_type || '-'}</div>
+                {log.action && (
+                  <small style={{ 
+                    color: log.action === 'allow' ? '#059669' : log.action === 'deny' ? '#dc2626' : '#6b7280',
+                    fontSize: '12px',
+                    fontWeight: '500'
+                  }}>
+                    {log.action}
+                  </small>
+                )}
+              </td>
+              <td style={{ fontSize: '13px', fontFamily: 'monospace' }}>
+                {log.src_ip || '-'}
+              </td>
+              <td>{log.user || '-'}</td>
               <td>{log.host || '-'}</td>
               <td style={{ maxWidth: '400px', wordBreak: 'break-word' }}>
                 {log.message || '-'}
               </td>
-              <td>{log.user || '-'}</td>
-              <td>{log.event_type || '-'}</td>
             </tr>
           ))}
         </tbody>

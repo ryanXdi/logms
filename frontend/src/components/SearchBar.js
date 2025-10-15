@@ -7,9 +7,6 @@ function SearchBar({ onSearch }) {
     severity: '',
     source: '',
     event_type: '',
-    host: '',
-    user: '',
-    src_ip: '',
     message: ''
   });
 
@@ -23,7 +20,6 @@ function SearchBar({ onSearch }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     
-    // Filter out empty values
     const searchParams = Object.entries(filters).reduce((acc, [key, value]) => {
       if (value && value.trim() !== '') {
         acc[key] = value;
@@ -41,9 +37,6 @@ function SearchBar({ onSearch }) {
       severity: '',
       source: '',
       event_type: '',
-      host: '',
-      user: '',
-      src_ip: '',
       message: ''
     };
     setFilters(defaultFilters);
@@ -89,9 +82,9 @@ function SearchBar({ onSearch }) {
               <option value="8">🟠 High (8)</option>
               <option value="7">🟠 Error (7)</option>
               <option value="6">🟡 Warning (6)</option>
-              <option value="5">🟢 Notice (5)</option>
-              <option value="4">🔵 Info (4)</option>
+              <option value="5">🟢 Info (5)</option>
               <option value="3">⚪ Debug (3)</option>
+              <option value="0">⚫ All (0+)</option>
             </select>
           </div>
 
@@ -115,79 +108,18 @@ function SearchBar({ onSearch }) {
             <select name="event_type" className="input" value={filters.event_type} onChange={handleChange} style={{ fontSize: '14px' }}>
               <option value="">All Events</option>
               <option value="auth">🔐 Authentication</option>
-              <option value="auth_failure">❌ Auth Failure</option>
               <option value="network">🌐 Network</option>
-              <option value="database">💾 Database</option>
-              <option value="database_error">🔴 DB Error</option>
-              <option value="application">📱 Application</option>
               <option value="system">⚙️ System</option>
-              <option value="system_error">🔴 System Error</option>
+              <option value="database">� Database</option>
+              <option value="application">📱 Application</option>
               <option value="security">🛡️ Security</option>
-              <option value="sql_injection">⚠️ SQL Injection</option>
               <option value="aws">☁️ AWS</option>
-              <option value="signin">🔑 AWS Sign-in</option>
-              <option value="s3">🪣 AWS S3</option>
-              <option value="iam">� AWS IAM</option>
-              <option value="ec2">🖥️ AWS EC2</option>
             </select>
           </div>
-        </div>
-
-        {/* Secondary Filters Row */}
-        <div style={{ 
-          display: 'grid', 
-          gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', 
-          gap: '15px', 
-          marginBottom: '15px' 
-        }}>
-          <div>
-            <label style={{ display: 'block', marginBottom: '5px', fontSize: '13px', fontWeight: '600', color: '#374151' }}>
-              🖥️ Host
-            </label>
-            <input
-              type="text"
-              name="host"
-              className="input"
-              value={filters.host}
-              onChange={handleChange}
-              placeholder="e.g., web-server-01"
-              style={{ fontSize: '14px' }}
-            />
-          </div>
 
           <div>
             <label style={{ display: 'block', marginBottom: '5px', fontSize: '13px', fontWeight: '600', color: '#374151' }}>
-              👤 User
-            </label>
-            <input
-              type="text"
-              name="user"
-              className="input"
-              value={filters.user}
-              onChange={handleChange}
-              placeholder="e.g., admin"
-              style={{ fontSize: '14px' }}
-            />
-          </div>
-
-          <div>
-            <label style={{ display: 'block', marginBottom: '5px', fontSize: '13px', fontWeight: '600', color: '#374151' }}>
-              🌐 Source IP
-            </label>
-            <input
-              type="text"
-              name="src_ip"
-              className="input"
-              value={filters.src_ip}
-              onChange={handleChange}
-              placeholder="e.g., 192.168.1.100"
-              style={{ fontSize: '14px' }}
-            />
-          </div>
-
-          <div>
-            <label style={{ display: 'block', marginBottom: '5px', fontSize: '13px', fontWeight: '600', color: '#374151' }}>
-              💬 Message Search
+              � Message Search
             </label>
             <input
               type="text"
@@ -195,13 +127,12 @@ function SearchBar({ onSearch }) {
               className="input"
               value={filters.message}
               onChange={handleChange}
-              placeholder="Search keywords..."
+              placeholder="Search in message or raw log..."
               style={{ fontSize: '14px' }}
             />
           </div>
         </div>
 
-        {/* Action Buttons */}
         <div style={{ display: 'flex', gap: '10px', paddingTop: '10px', borderTop: '1px solid #e5e7eb' }}>
           <button type="submit" className="btn btn-primary" style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
             <span>🔍</span> Search Logs
@@ -211,7 +142,6 @@ function SearchBar({ onSearch }) {
           </button>
         </div>
 
-        {/* Active Filters Display */}
         {Object.entries(filters).filter(([key, value]) => value && key !== 'from' && key !== 'to').length > 0 && (
           <div style={{ 
             marginTop: '15px', 
